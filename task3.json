@@ -1,0 +1,24 @@
+{
+    "metadata": {
+        "columns": {
+            "userID": "user id of the users ",
+            "movieID": "movie id for the movies",
+            "rating": "rating given to the movies",
+            "timestamp": "timestamp of rating given"
+        }
+    },
+    "data": {
+        "97": 2.5,
+        "98": 2.8,
+        "99": 2.1,
+        "100": 3.2,
+        "101": 3.7,
+        "102": 3.4,
+        "103": 4,
+        "104": 3,
+        "105": 2.3,
+        "106": 4,
+        "107": 1,
+        "108": 4
+    }
+}
