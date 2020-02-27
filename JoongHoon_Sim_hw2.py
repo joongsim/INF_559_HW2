@@ -1,7 +1,18 @@
 # libraries
 import csv
+import json
 from collections import defaultdict
 from statistics import mean
+
+
+def csvRatings():
+    reader = csv.DictReader(open('movies.csv'))
+    ratingsDict = defaultdict(list)
+    for row in reader:
+        ratingsDict[int(row['movieID'])].append(int(row['rating']))
+    for key in ratingsDict:
+        ratingsDict[key] = mean(ratingsDict[key])
+    return ratingsDict
 
 
 # Task 1
@@ -40,10 +51,20 @@ def task2():
             writer.writerow({'movieID': row, 
                             'avgRating': round(movieIDRatings[row], 1)})
 
+
+# Task 3
+def task3():
+    with open('movies.json') as jsonFile:
+        data = json.load(jsonFile)
+        jsonStr = json.dumps(data, indent = 4)
+
+    print(jsonStr)
+
 def main():
-    print("hello")
+    
     task1()
     task2()
+    task3()
 
 
 if __name__ == "__main__":
