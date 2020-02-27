@@ -1,0 +1,2 @@
+ Given that the data is ordered and highly structured, CSV is the better format.
+ JSON introduces redundant information unnecessary for such regular data.
