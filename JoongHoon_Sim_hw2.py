@@ -1,5 +1,6 @@
 # libraries
 import csv
+import itertools
 import json
 
 from tableschema import Table
@@ -113,10 +114,16 @@ def task4():
 
 # Extra credit - 
 def ec():
-    with open('task4.csv') as fin:
-        lines = fin.readlines()
-    print(lines)
-
+    with open('task4.csv', newline='') as fin:
+        reader = csv.DictReader(fin)
+        
+        # display metadata
+        for row in itertools.islice(reader, 0, 1):
+            print(
+                'Author: {}\nOrganization: {}\nCreation Date: {}'.format(
+                row['author'], row['organization'], row['creation_date']))
+        for row in itertools.islice(reader, 0, None):
+            print('{0:8} {1:8}'.format(row['author'], row['organization']))
 
 
 
@@ -136,11 +143,11 @@ def task5():
 
 def main():
     
-    #task1()
-    #task2()
-    #task3()
+    task1()
+    task2()
+    task3()
     task4()
-    #ec()
-    #task5()
+    ec()
+    task5()
 if __name__ == "__main__":
     main()
