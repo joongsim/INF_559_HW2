@@ -92,24 +92,33 @@ def task4():
     # dictionaries for each section
     infoDict = data['metadata']['info']
     colDict = data['metadata']['columns']
-    dataDict = data['data']
+    dataDict = data['data']    
 
-    # build header from dictionaries
-    header = ','.join(infoDict.keys()) + '\n' + ','.join(infoDict.values()) +'\n\n'
-    header += ','.join(colDict.keys())+'\n'
-    
+    headerlist = [infoDict.keys(), infoDict.values()]
 
 
     with open('task4.csv', mode = 'w', newline='') as fout:
         fieldnames = ['movieID', 'avg_rating']
         writer = csv.writer(fout)
-        fout.write(header)
 
+        for item in headerlist:
+            writer.writerow(item)
+        writer.writerow('')
+        writer.writerow(colDict.keys())
         for row in dataDict:
             writer.writerow(row)
             
     # Given that the data is ordered and highly structured, CSV is the better format.
     # JSON introduces redundant information unnecessary for such regular data
+
+# Extra credit - 
+def ec():
+    with open('task4.csv') as fin:
+        lines = fin.readlines()
+    print(lines)
+
+
+
 
 # Task 5 - using TableSchema to generate schema.json for movies.csv
 def task5():
@@ -130,7 +139,8 @@ def main():
     #task1()
     #task2()
     #task3()
-    #task4()
-    task5()
+    task4()
+    #ec()
+    #task5()
 if __name__ == "__main__":
     main()
