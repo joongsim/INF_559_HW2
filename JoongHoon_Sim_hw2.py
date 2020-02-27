@@ -47,7 +47,7 @@ def task2():
                             'avgRating': round(movieIDRatings[row], 1)})
 
 
-# Task 3
+# Task 3 - writes average ratings to json
 def task3():
     with open('movies.json') as jsonFile:
         data = json.load(jsonFile)
@@ -81,13 +81,37 @@ def task3():
     with open('task3.json', 'w') as fout:
         json.dump(dataCopy, fout, indent=4)
     
+# Task 4 - converts task3.json to csv format
+def task4():
+    with open('task3.json') as fin:
+        data = json.load(fin)
+
+    # dictionaries for each section
+    infoDict = data['metadata']['info']
+    colDict = data['metadata']['columns']
+    dataDict = data['data']
+
+    # build header from dictionaries
+    header = ','.join(infoDict.keys()) + '\n' + ','.join(infoDict.values()) +'\n\n'
+    header += ','.join(colDict.keys())+'\n'
+    
+
+
+    with open('task4.csv', mode = 'w', newline='') as fout:
+        fieldnames = ['movieID', 'avg_rating']
+        writer = csv.writer(fout)
+        fout.write(header)
+
+        for row in dataDict:
+            writer.writerow(row)
+            
 
 def main():
     
     #task1()
     #task2()
-    task3()
-
+    #task3()
+    task4()
 
 if __name__ == "__main__":
     main()
