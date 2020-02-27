@@ -1,8 +1,11 @@
 # libraries
 import csv
 import json
+
+from tableschema import Table
 from collections import defaultdict
 from statistics import mean
+
 
 # csvRatings - reads data from csv and calculates mean
 def csvRatings():
@@ -105,13 +108,29 @@ def task4():
         for row in dataDict:
             writer.writerow(row)
             
+    # Given that the data is ordered and highly structured, CSV is the better format.
+    # JSON introduces redundant information unnecessary for such regular data
+
+# Task 5 - using TableSchema to generate schema.json for movies.csv
+def task5():
+    table = Table('movies.csv')
+    table.infer()
+    
+    # fixing fields
+    # IDs should be strings
+    table.schema.descriptor['fields'][0]['type'] = 'string'
+    table.schema.descriptor['fields'][1]['type'] = 'string'
+    table.schema.commit()
+    print(table.schema.valid)
+
+    table.schema.save('schema.json')
 
 def main():
     
     #task1()
     #task2()
     #task3()
-    task4()
-
+    #task4()
+    task5()
 if __name__ == "__main__":
     main()
