@@ -52,21 +52,30 @@ def task3():
     with open('movies.json') as jsonFile:
         data = json.load(jsonFile)
 
-        # copy metadata only 
-        dataCopy = {'metadata': data['metadata'], 'data': {}}
-        print(dataCopy)
+        # json to write to file
+        dataCopy = {'metadata': {
+                        'info': {
+                            'author': 'Joong Hoon Sim',
+                            'organization': 'USC', 
+                            'creation_date': '2/24/2020'
+                        },
+                        'columns': {
+                            'movieID': 'movie id for the movies', 
+                            'avg_rating': 'average rating given to the movies'
+                        }
+                        }, 
+                    'data':[]}
         
-        
-
     ratingsDict = defaultdict(list)
 
     for row in data['data']:
         movieID = row[1]
         rating = row[2]
         ratingsDict[int(movieID)].append(int(rating))
-    #print(ratingsDict)
+    
     for key in sorted(ratingsDict):
-        dataCopy['data'][key] = round(mean(ratingsDict[key]), 1)
+        avgRating = round(mean(ratingsDict[key]), 1)
+        dataCopy['data'].append([key, avgRating])
         
     # write to file
     with open('task3.json', 'w') as fout:
